@@ -9,23 +9,26 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import environ
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env(DEBUG=(bool, False))
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
+environ.Env.read_env(ROOT_DIR / ".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-e-k6y0*pg18srt+4k4wzi$=7kpg-%^a0k&(7j)5qd1lorp!#b6"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(" ")
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
@@ -44,8 +47,14 @@ INSTALLED_APPS = [
     # External
     'rest_framework',
     'corsheaders',
+    "django_filters",
+    "django_countries",
+    # "djoser",
+    # "rest_framework_simplejwt",
     # Internal Apps
-
+    'users',
+    'profiles',
+    'common',
 ]
 
 MIDDLEWARE = [
