@@ -33,6 +33,7 @@ ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(" ")
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
+    "http://localhost:5173",
 ]
 
 
@@ -172,5 +173,5 @@ DJOSER = {
         'user': "users.serializers.UserSerializer",
         'current_user': "users.serializers.UserSerializer",
         'user_delete': "users.serializers.UserDeleteSerializer",      
-    }
+    },
 }
