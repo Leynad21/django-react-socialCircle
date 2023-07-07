@@ -67,7 +67,7 @@ const ResetPasswordPage = () => {
                             name="email" value={email} onChange={handleChange} required />
                     </div>
                     <div>
-                        <button className="btn btn-primary w-28 lg:w-48">Reset</button>
+                        <button className="btn btn-primary w-28 lg:w-48">Request reset</button>
                     </div>
 
                 </form>

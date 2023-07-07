@@ -20,6 +20,20 @@ const LoginPage = () => {
 
     const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth)
 
+
+    useEffect(() => {
+        if (isError) {
+            toast.error(message)
+        }
+
+        if (isSuccess || user) {
+            navigate("/dashboard")
+        }
+
+        dispatch(reset())
+
+    }, [isError, isSuccess, message, user, navigate, dispatch])
+
     const handleChange = (e) => setFormData((prevState) => ({
         ...prevState,
         [e.target.name]: e.target.value
@@ -34,20 +48,6 @@ const LoginPage = () => {
 
         dispatch(login(userData))
     }
-
-    useEffect(() => {
-        if (isError) {
-            toast.error(message)
-        }
-
-        if (isSuccess || user) {
-            navigate("/")
-            // window.location.reload()
-        }
-
-        dispatch(reset())
-
-    }, [isError, isSuccess, message, user, navigate, dispatch])
 
     return (
         <div className='flex flex-col items-center '>

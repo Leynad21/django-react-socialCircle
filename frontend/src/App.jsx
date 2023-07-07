@@ -9,6 +9,8 @@ import ActivatePage from './pages/ActivatePage'
 import ResetPasswordPage from './pages/ResetPasswordPage'
 import ResetPasswordConfirmPage from './pages/ResetPasswordConfirmPage'
 import NotFoundPage from "./pages/notFoundPage"
+import DashboardPage from "./pages/DashboardPage"
+import MyProfilePage from "./pages/MyProfilePage"
 
 function App() {
 
@@ -26,6 +28,8 @@ function App() {
               <Route path="/reset-password" element={<ResetPasswordPage />} />
               <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirmPage />} />
               <Route path="/activate/:uid/:token" element={<ActivatePage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/my-profile" element={<MyProfilePage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </div>

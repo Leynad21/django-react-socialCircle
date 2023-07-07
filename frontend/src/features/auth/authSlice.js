@@ -16,7 +16,7 @@ export const register = createAsyncThunk(
     "auth/register",
     async (userData, thunkAPI) => {
         try {
-            await authService.register(userData)
+            return await authService.register(userData)
         } catch (error) {
             const message = (error.response && error.response.data
                 && error.response.data.message) ||
@@ -30,9 +30,9 @@ export const register = createAsyncThunk(
 
 export const login = createAsyncThunk(
     "auth/login",
-    async (userData, thunkAPI) => {
+    async (user, thunkAPI) => {
         try {
-            await authService.login(userData)
+            return await authService.login(user)
         } catch (error) {
             const message = (error.response && error.response.data
                 && error.response.data.message) ||
@@ -55,7 +55,7 @@ export const activate = createAsyncThunk(
     "auth/activate",
     async (userData, thunkAPI) => {
         try {
-            await authService.activate(userData)
+            return await authService.activate(userData)
         } catch (error) {
             const message = (error.response && error.response.data
                 && error.response.data.message) ||
@@ -71,7 +71,7 @@ export const resetPassword = createAsyncThunk(
     "auth/resetPassword",
     async (userData, thunkAPI) => {
         try {
-            await authService.resetPassword(userData)
+            return await authService.resetPassword(userData)
         } catch (error) {
             const message = (error.response && error.response.data
                 && error.response.data.message) ||
@@ -87,7 +87,7 @@ export const resetPasswordConfirm = createAsyncThunk(
     "auth/resetPasswordConfirm",
     async (userData, thunkAPI) => {
         try {
-            await authService.resetPasswordConfirm(userData)
+            return await authService.resetPasswordConfirm(userData)
         } catch (error) {
             const message = (error.response && error.response.data
                 && error.response.data.message) ||
