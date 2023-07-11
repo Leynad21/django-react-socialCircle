@@ -65,7 +65,7 @@ const MyProfilePage = () => {
     }
 
     return (
-        <div className=' container mx-auto max-w-7xl mb-8 '>
+        <div className=' container mx-auto max-w-7xl mb-8 px-12 '>
             <div className="text-center">
                 <h1 className='text-4xl font-semibold mt-12'> My Profile </h1>
                 <p className='text-xl font-semibold text-gray-600 m-4'></p>

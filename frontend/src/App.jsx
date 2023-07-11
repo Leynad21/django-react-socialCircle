@@ -11,6 +11,8 @@ import ResetPasswordConfirmPage from './pages/ResetPasswordConfirmPage'
 import NotFoundPage from "./pages/notFoundPage"
 import DashboardPage from "./pages/DashboardPage"
 import MyProfilePage from "./pages/MyProfilePage"
+import QuizHomePage from "./pages/quiz/QuizHomePage"
+import QuizOfflineDashboardPage from "./pages/quiz/QuizOfflineDashboardPage"
 
 function App() {
 
@@ -30,6 +32,8 @@ function App() {
               <Route path="/activate/:uid/:token" element={<ActivatePage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/my-profile" element={<MyProfilePage />} />
+              <Route path="/quiz" element={<QuizHomePage />} />
+              <Route path="/quiz-offline" element={<QuizOfflineDashboardPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </div>
