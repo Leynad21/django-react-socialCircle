@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+from autoslug import AutoSlugField
 
 User = get_user_model()
 
@@ -9,8 +10,9 @@ User = get_user_model()
 
 class Quiz(models.Model):
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    title = models.CharField( _("Quiz Title") ,max_length=255, default=_("New Quiz"))
+    title = models.CharField( _("Quiz Title") ,max_length=255, unique=True, default=_("New Quiz"))
     created_at = models.DateTimeField(auto_now_add=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
 
     @property
     def question_count(self):
@@ -42,7 +44,7 @@ class Question(Updated):
 
     quiz = models.ForeignKey(
 		Quiz, 
-		related_name='question', # need related name for hyper link related field to work
+		related_name='questions', # need related name for hyper link related field to work
 		on_delete=models.DO_NOTHING
 	)
     method = models.IntegerField(_("Type of question"), choices=TYPE, default=0)
@@ -56,7 +58,7 @@ class Question(Updated):
         ordering = ['id']
 
     def __str__(self):
-	    return self.prompt
+	    return self.title
 
 
 class Answer(Updated):
@@ -74,4 +76,4 @@ class Answer(Updated):
         ordering = ['id']
 
     def __str__(self):
-	    return self.text
+	    return self.answer_text
