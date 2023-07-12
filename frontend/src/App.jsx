@@ -13,6 +13,7 @@ import DashboardPage from "./pages/DashboardPage"
 import MyProfilePage from "./pages/MyProfilePage"
 import QuizHomePage from "./pages/quiz/QuizHomePage"
 import QuizOfflineDashboardPage from "./pages/quiz/QuizOfflineDashboardPage"
+import QuizDetailPage from "./pages/quiz/QuizDetailPage"
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
               <Route path="/my-profile" element={<MyProfilePage />} />
               <Route path="/quiz" element={<QuizHomePage />} />
               <Route path="/quiz-offline" element={<QuizOfflineDashboardPage />} />
+              <Route path="/quiz/:slug" element={<QuizDetailPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </div>

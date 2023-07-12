@@ -55,8 +55,6 @@ const MyProfilePage = () => {
             animal, gender, city
         }
 
-        console.log(profileData)
-
         dispatch(updateProfile(profileData))
     }
 

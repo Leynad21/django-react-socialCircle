@@ -1,21 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import profileService from "./profileService";
+import quizService from "./quizService";
 
 
 const initialState = {
-    profile: {},
+    quizzes: [],
+    quiz: {},
     isError: false,
     isLoading: false,
     isSuccess: false,
     message: "",
 }
 
-export const getProfile = createAsyncThunk(
-    "profile/getProfile",
+export const getQuizzes = createAsyncThunk(
+    "quiz/getQuizzes",
     async (_, thunkAPI) => {
         try {
             const accessToken = thunkAPI.getState().auth.user.access
-            return await profileService.getProfile(accessToken)
+            return await quizService.getQuizzes(accessToken)
         } catch (error) {
             const message = (error.response && error.response.data
                 && error.response.data.message) ||
@@ -27,12 +28,12 @@ export const getProfile = createAsyncThunk(
     }
 )
 
-export const updateProfile = createAsyncThunk(
-    "profile/updateProfile",
-    async (profileData, thunkAPI) => {
+export const getQuiz = createAsyncThunk(
+    "quiz/getQuiz",
+    async (quizData, thunkAPI) => {
         try {
             const accessToken = thunkAPI.getState().auth.user.access
-            return await profileService.updateProfile(profileData, accessToken)
+            return await quizService.getQuiz(quizData, accessToken)
         } catch (error) {
             const message = (error.response && error.response.data
                 && error.response.data.message) ||
@@ -45,9 +46,8 @@ export const updateProfile = createAsyncThunk(
 )
 
 
-
-export const profileSlice = createSlice({
-    name: "profiles",
+export const quizSlice = createSlice({
+    name: "quiz",
     initialState,
     reducers: {
         'reset': (state) => {
@@ -59,28 +59,28 @@ export const profileSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getProfile.pending, (state) => {
+            .addCase(getQuizzes.pending, (state) => {
                 state.isLoading = true
             })
-            .addCase(getProfile.fulfilled, (state, action) => {
+            .addCase(getQuizzes.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.profile = action.payload.profile
+                state.quizzes = action.payload
             })
-            .addCase(getProfile.rejected, (state, action) => {
+            .addCase(getQuizzes.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.message = action.payload
             })
-            .addCase(updateProfile.pending, (state) => {
+            .addCase(getQuiz.pending, (state) => {
                 state.isLoading = true
             })
-            .addCase(updateProfile.fulfilled, (state, action) => {
+            .addCase(getQuiz.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.profile = action.payload
+                state.quiz = action.payload
             })
-            .addCase(updateProfile.rejected, (state, action) => {
+            .addCase(getQuiz.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.message = action.payload
@@ -89,6 +89,6 @@ export const profileSlice = createSlice({
 })
 
 
-export const { reset } = profileSlice.actions
+export const { reset } = quizSlice.actions
 
-export default profileSlice.reducer
+export default quizSlice.reducer
