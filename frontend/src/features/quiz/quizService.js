@@ -32,7 +32,50 @@ const getQuiz = async (quizData, accessToken) => {
     return response.data
 }
 
+// Delete Quiz
 
-const quizService = { getQuizzes, getQuiz }
+const deleteQuiz = async (quizData, accessToken) => {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${accessToken}`,
+        }
+    }
+    const response = await axios.delete(QUIZZES_URL + quizData.slug, config)
+
+    return response.data
+}
+
+// Create Quiz
+
+const createQuiz = async (quizData, accessToken) => {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+        }
+    }
+    const response = await axios.post(QUIZZES_URL, quizData, config)
+
+    return response.data
+}
+
+// Create Question
+
+const createQuestion = async (questionData, accessToken) => {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+        }
+    }
+    const response = await axios.post(QUIZZES_URL + "question/" + questionData.slug, questionData, config)
+
+    return response.data
+}
+
+
+
+
+const quizService = { getQuizzes, getQuiz, deleteQuiz, createQuiz, createQuestion }
 
 export default quizService

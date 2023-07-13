@@ -50,7 +50,6 @@ class Question(Updated):
     method = models.IntegerField(_("Type of question"), choices=TYPE, default=0)
     title = models.CharField(max_length=255, default='')
     date_created = models.DateTimeField(_("Date Created"), auto_now_add=True)
-    is_active = models.BooleanField(_("Active Status"), default=False)
 
     class Meta:
         verbose_name = _("Question")
@@ -64,8 +63,8 @@ class Question(Updated):
 class Answer(Updated):
     question = models.ForeignKey(
 		Question, 
-		related_name='answer', 
-		on_delete=models.DO_NOTHING
+		related_name='answers', 
+		on_delete=models.CASCADE
 	)
     answer_text = models.CharField(max_length=255)
     is_right = models.BooleanField(default=False)

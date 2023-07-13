@@ -13,7 +13,7 @@ const ActivatePage = () => {
     const dispatch = useDispatch()
 
     const { isLoading, isError, isSuccess, message } = useSelector((state) => state.auth)
-    
+
 
     useEffect(() => {
         if (isError) {
@@ -53,8 +53,6 @@ const ActivatePage = () => {
             <div>
                 <button className="btn btn-primary btn-lg w-28 lg:w-48" onClick={handleSubmit}>Activate</button>
             </div>
-
-
         </div>
     )
 }
