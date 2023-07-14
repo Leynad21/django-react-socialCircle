@@ -7,7 +7,7 @@ import NewQuestion from '../../components/quiz/NewQuestion'
 
 const CreateQuizPage = () => {
 
-    const [questionsArray, setQuestionsArray] = useState([])
+    const [myQuizzes, setMyQuizzes] = useState([])
     const [selectedAnswer, setSelectedAnswer] = useState("")
 
     const [formData, setFormData] = useState({
@@ -67,14 +67,14 @@ const CreateQuizPage = () => {
         setFormData((prevState) => ({
             ...prevState,
             answers,
-        }))
-    }
+        }));
+    };
 
     const handleSelectChange = (e) => {
         const selectedAnswer = e.target.value;
         setSelectedAnswer(selectedAnswer)
 
-    }
+    };
 
     useEffect(() => {
         if (selectedAnswer !== "") {
@@ -83,15 +83,15 @@ const CreateQuizPage = () => {
                     return {
                         ...answer,
                         is_right: true,
-                    }
+                    };
                 }
-                return answer
+                return answer;
             });
 
             setFormData((prevFormData) => ({
                 ...prevFormData,
                 answers: updatedAnswers,
-            }))
+            }));
         }
     }, [selectedAnswer])
 
@@ -105,22 +105,14 @@ const CreateQuizPage = () => {
             toast.error("Only one answer allowed in Single answer question ")
         } else {
 
-            setQuestionsArray((prevQuestionsArray) => [...prevQuestionsArray, formData])
 
-            // Reset the form data and selected answer
-            setFormData({
-                title: '',
-                method: 0,
-                answers: [
-                    { answer_text: '', is_right: false },
-                    { answer_text: '', is_right: false },
-                    { answer_text: '', is_right: false },
-                    { answer_text: '', is_right: false },
-                ],
-            });
-            setSelectedAnswer('')
+
+            console.log(formData);
+            console.log(correctAnswers);
+
+            // Reset the selected answer
+            setSelectedAnswer("");
         }
-        console.log(formData);
 
     };
 
@@ -215,59 +207,21 @@ const CreateQuizPage = () => {
                     </div>
                 </form>
             </div>
-        )
-    }
-
-    const QuizQuestion = ({ questionsArray }) => {
-        if (!questionsArray || questionsArray.length === 0) {
-            return null; // or return some fallback JSX if needed
-        }
-
-        return (
-            <div className=" bg-white w-5/6 max-w-[800px] min-h-[450px] rounded-lg shadow-sm">
-                <div className="text-right bg-blue-400 pt-4 pb-4 pr-4 flex justify-end items-center rounded-lg">
-                    <p>Single answer</p>
-                    <h1 className="text-4xl text-right ml-4">3/8</h1>
-                </div>
-                <div className="p-4">
-                    <h1 className="text-2xl flex items-center">
-                        <span>1: </span> {questionsArray.title}
-                    </h1>
-                    <h2 className="text-xl mt-12 mb-4">Answers:</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-8 mb-8">
-                        <li
-                            className="list-none border-2 rounded-full p-2"
-                        >{questionsArray.answer[0].answer_text}</li>
-                        <li
-                            className="list-none border-2 rounded-full p-2"
-                        >{questionsArray.answer[1].answer_text}</li>
-                        <li
-                            className="list-none border-2 rounded-full p-2"
-                        >{questionsArray.answer[2].answer_text}</li>
-                        <li
-                            className="list-none border-2 rounded-full p-2"
-                        >{questionsArray.answer[3].answer_text}</li>
-                    </div>
-                    <div className="flex justify-between">
-                    </div>
-                    <h3>Correct answers: Not now</h3>
-                </div>
-            </div>
-        )
-    }
+        );
+    };
 
     return (
         <div>
-            <div className="flex flex-col items-center ">
-                <h1 className="text-4xl font-semibold mt-12">Create Quiz</h1>
-                <p className="text-xl font-semibold text-gray-600 m-4 mb-8">
-                    {quiz.title}
-                </p>
-                {/* <QuizQuestion questionsArray={questionsArray} /> */}
-                <QuizForm />
-            </div>
+          <div className="flex flex-col items-center ">
+            <h1 className="text-4xl font-semibold mt-12">Create Quiz</h1>
+            <p className="text-xl font-semibold text-gray-600 m-4 mb-8">
+              {quiz.title}
+            </p>
+            <QuizForm />
+          </div>
         </div>
-    )
+      );
+
 }
 
 export default CreateQuizPage
