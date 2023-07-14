@@ -54,7 +54,7 @@ const QuizOfflineDashboardPage = () => {
         const quizData = selectedOption
 
         dispatch(getQuiz(quizData))
-        navigate(`/quiz/${selectedOption.slug}`)
+        navigate(`/quiz/play/${selectedOption.slug}`)
     }
 
 

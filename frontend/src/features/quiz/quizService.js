@@ -68,7 +68,7 @@ const createQuestion = async (questionData, accessToken) => {
             "Content-Type": "application/json",
         }
     }
-    const response = await axios.post(QUIZZES_URL + "question/" + questionData.slug, questionData, config)
+    const response = await axios.post(QUIZZES_URL + "question/" + questionData.quiz, questionData, config)
 
     return response.data
 }

@@ -66,8 +66,8 @@ class Answer(Updated):
 		related_name='answers', 
 		on_delete=models.CASCADE
 	)
-    answer_text = models.CharField(max_length=255)
-    is_right = models.BooleanField(default=False)
+    answer_text = models.CharField(max_length=255, null=True, blank=True)
+    is_right = models.BooleanField(default=False, null=True, blank=True)
         
     class Meta:
         verbose_name = _("Answer")
