@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from "react-toastify"
 import { getQuiz, reset, createQuestion } from '../../features/quiz/quizSlice'
-import NewQuestion from '../../components/quiz/NewQuestion'
 
 const CreateQuizPage = () => {
 
@@ -122,8 +121,6 @@ const CreateQuizPage = () => {
             });
             setSelectedAnswer('')
         }
-        console.log(formData);
-        console.log(questionsArray);
 
     };
 

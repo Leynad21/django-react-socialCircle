@@ -16,6 +16,7 @@ import QuizOfflineDashboardPage from "./pages/quiz/QuizOfflineDashboardPage"
 import QuizGamePage from "./pages/quiz/QuizGamePage"
 import MyQuizzesPage from "./pages/quiz/MyQuizzesPage"
 import CreateQuizPage from "./pages/quiz/CreateQuizPage"
+import ScorePage from "./pages/quiz/ScorePage"
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
               <Route path="/quiz/create/:slug" element={<CreateQuizPage />} />
               <Route path="/quiz-offline" element={<QuizOfflineDashboardPage />} />
               <Route path="/quiz/play/:slug" element={<QuizGamePage />} />
+              <Route path="/quiz/score/:slug" element={<ScorePage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </div>

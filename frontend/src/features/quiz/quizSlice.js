@@ -5,8 +5,12 @@ import quizService from "./quizService";
 const initialState = {
     quizzes: [],
     quiz: {},
+    quizScore: {
+        totalAnswers: 0,
+        correctAnswers: 0,
+    },
     isError: false,
-    isLoading: false,
+    isLoading: true,
     isSuccess: false,
     message: "",
 }
@@ -96,16 +100,47 @@ export const createQuestion = createAsyncThunk(
     }
 )
 
+export const getPlayQuiz = createAsyncThunk(
+    "quiz/getPlayQuiz",
+    async (quizData, thunkAPI) => {
+        try {
+            const accessToken = thunkAPI.getState().auth.user.access
+            return await quizService.getPlayQuiz(quizData, accessToken)
+        } catch (error) {
+            const message = (error.response && error.response.data
+                && error.response.data.message) ||
+                error.message ||
+                error.toString()
+
+            return thunkAPI.rejectWithValue(message)
+        }
+    }
+)
+
+
 
 export const quizSlice = createSlice({
     name: "quiz",
     initialState,
     reducers: {
         'reset': (state) => {
+            state.quizzes = []
+            state.quiz = {}
+            state.quizScore = {
+                score: 0,
+                correctAnswers: 0,
+                wrongAnswers: 0,
+            }
             state.isLoading = false
             state.isError = false
             state.isSuccess = false
             state.message = ""
+        },
+        updateTotalAnswers: (state, action) => {
+            state.quizScore.totalAnswers = action.payload;
+        },
+        updateCorrectAnswers: (state, action) => {
+            state.quizScore.correctAnswers = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -162,11 +197,24 @@ export const quizSlice = createSlice({
                 state.isError = true
                 state.message = action.payload
             })
+            .addCase(getPlayQuiz.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(getPlayQuiz.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.quiz = action.payload[0]
+            })
+            .addCase(getPlayQuiz.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.message = action.payload
+            })
 
     }
 })
 
 
-export const { reset } = quizSlice.actions
+export const { reset, updateTotalAnswers, updateCorrectAnswers } = quizSlice.actions
 
 export default quizSlice.reducer

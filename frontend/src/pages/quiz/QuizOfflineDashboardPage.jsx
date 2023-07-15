@@ -23,7 +23,6 @@ const QuizOfflineDashboardPage = () => {
         } else {
             const selectedQuiz = quizzesLocal.find((quiz) => quiz.slug === selectedSlug);
             setSelectedOption(selectedQuiz);
-            console.log(selectedQuiz);
         }
     }
 
@@ -36,7 +35,6 @@ const QuizOfflineDashboardPage = () => {
 
         dispatch(getQuizzes())
         setQuizzesLocal(quizzes)
-        console.log(quizzes);
 
 
         return () => {
@@ -49,7 +47,6 @@ const QuizOfflineDashboardPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(selectedOption);
 
         const quizData = selectedOption
 

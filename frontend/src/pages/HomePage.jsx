@@ -20,7 +20,6 @@ const HomePage = () => {
         const changeBackgroundImg = () => {
             currentIndex = (currentIndex + 1) % carouselImages.length
             setBackgroundImg(carouselImages[currentIndex])
-            console.log(currentIndex)
         }
 
         const interval = setInterval(changeBackgroundImg, 6000)

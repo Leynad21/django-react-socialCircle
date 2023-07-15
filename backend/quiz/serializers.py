@@ -78,4 +78,52 @@ class QuestionSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance
+    
+
+class PlayQuizSerializer(serializers.ModelSerializer):
+    question_count = serializers.SerializerMethodField("get_question_count")
+    author_username = serializers.CharField(source="author.username", read_only=True)
+    questions = serializers.SerializerMethodField("get_quiz_questions")
+
+    class Meta:
+        model = Quiz
+        fields = [
+            'id',
+            'title',
+            'author',
+            'author_username',
+            'question_count',
+            'slug',
+            'created_at',
+            'questions',
+        ]
+        read_only_fields = ['author']
+
+    def get_question_count(self, obj):
+        return obj.question_count
+
+    def get_quiz_questions(self, obj):
+        questions = obj.questions.all()
+        question_data = []
+        for question in questions:
+            answers = question.answers.all()
+            answer_data = []
+            for answer in answers:
+                answer_data.append({
+                    'id': answer.id,
+                    'answer_text': answer.answer_text,
+                    'is_right': answer.is_right,
+                })
+            question_data.append({
+                'id': question.id,
+                'title': question.title,
+                'method': question.method,
+                'date_created': question.date_created,
+                'answers': answer_data,
+            })
+        return question_data
+
+    def create(self, validated_data):
+        validated_data['author'] = self.context['request'].user
+        return super().create(validated_data)
 

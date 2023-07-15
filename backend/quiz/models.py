@@ -44,7 +44,7 @@ class Question(Updated):
 
     quiz = models.ForeignKey(
 		Quiz, 
-		related_name='questions', # need related name for hyper link related field to work
+		related_name='questions', 
 		on_delete=models.DO_NOTHING
 	)
     method = models.IntegerField(_("Type of question"), choices=TYPE, default=0)

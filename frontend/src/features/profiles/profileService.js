@@ -28,7 +28,6 @@ const updateProfile = async (profileData, accessToken) => {
     }
 
     const response = await axios.patch(UPDATE_PROFILE_URL + profileData.username + "/", profileData, config)
-    console.log(profileData);
 
     return response.data
 }

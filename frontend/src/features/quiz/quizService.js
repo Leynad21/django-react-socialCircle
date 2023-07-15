@@ -73,9 +73,22 @@ const createQuestion = async (questionData, accessToken) => {
     return response.data
 }
 
+// Get Play Quiz
+
+const getPlayQuiz = async (quizData, accessToken) => {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+        }
+    }
+    const response = await axios.get(QUIZZES_URL + "play/" + quizData.slug, config)
+
+    return response.data
+}
 
 
 
-const quizService = { getQuizzes, getQuiz, deleteQuiz, createQuiz, createQuestion }
+const quizService = { getQuizzes, getQuiz, deleteQuiz, createQuiz, createQuestion, getPlayQuiz }
 
 export default quizService

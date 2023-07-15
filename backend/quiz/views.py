@@ -1,8 +1,7 @@
-from django.shortcuts import render
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from .models import Quiz, Question
-from .serializers import QuizSerializer, QuestionSerializer
+from .serializers import QuizSerializer, QuestionSerializer, PlayQuizSerializer
 from rest_framework.views import APIView
 from django.http import Http404
 
@@ -66,3 +65,11 @@ class QuizQuestionDetail(APIView):
         return Response({"message": "Question deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
     
 
+class PlayQuiz(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = PlayQuizSerializer
+
+    def get_queryset(self):
+        slug = self.kwargs['slug'] 
+        queryset = Quiz.objects.filter(slug=slug)
+        return queryset
