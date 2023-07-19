@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout, reset } from '../../features/auth/authSlice'
 import { FaSignInAlt } from 'react-icons/fa'
+import jwt_decode from 'jwt-decode'
+import { toast } from "react-toastify"
+
 
 const NavBar = () => {
 
@@ -16,6 +19,32 @@ const NavBar = () => {
         dispatch(reset())
         navigate("/")
     }
+
+    useEffect(() => {
+        const checkTokenExpiration = () => {
+            if (user && user.access) {
+                const token = user.access
+
+                if (token) {
+                    const decodedToken = jwt_decode(token)
+                    const { exp } = decodedToken
+                    const tokenExpiration = exp * 1000; // Converting expiration time to milliseconds
+                    const currentTime = Date.now(); // Get the current timestamp in milliseconds
+
+                    if (currentTime > tokenExpiration) {
+                        dispatch(logout())
+                        toast.info("Your sessions has expired. Please login again")
+                    }
+                };
+            }
+        }
+
+        const tokenCheckInterval = setInterval(checkTokenExpiration, 5000); // Check every second
+
+        return () => {
+            clearInterval(tokenCheckInterval); // Cleanup the interval on component unmount
+        };
+    }, [dispatch, user]);
 
     return (
         <nav className=' flex justify-between bg-blue-600 text-xl px-8 py-4 text-white w-full'>

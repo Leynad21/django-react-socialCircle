@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify"
 
 const BACKEND_DOMAIN = "http://localhost:8000"
 
@@ -28,8 +29,13 @@ const updateProfile = async (profileData, accessToken) => {
     }
 
     const response = await axios.patch(UPDATE_PROFILE_URL + profileData.username + "/", profileData, config)
+    if (response.status === 200) {
+        toast.success("Profile updated successfully")
+        return response.data
+    } else {
+        toast.error("Something went wrong")
+    }
 
-    return response.data
 }
 
 

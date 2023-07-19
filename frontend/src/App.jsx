@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from "react-toastify"
+import PrivateRoutes from "./utils/PrivateRoutes"
 import NavBar from './components/navigation/NavBar'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
@@ -34,14 +35,18 @@ function App() {
               <Route path="/reset-password" element={<ResetPasswordPage />} />
               <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirmPage />} />
               <Route path="/activate/:uid/:token" element={<ActivatePage />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/my-profile" element={<MyProfilePage />} />
-              <Route path="/quiz" element={<QuizHomePage />} />
-              <Route path="/quiz/me" element={<MyQuizzesPage />} />
-              <Route path="/quiz/create/:slug" element={<CreateQuizPage />} />
-              <Route path="/quiz-offline" element={<QuizOfflineDashboardPage />} />
-              <Route path="/quiz/play/:slug" element={<QuizGamePage />} />
-              <Route path="/quiz/score/:slug" element={<ScorePage />} />
+
+              <Route element={<PrivateRoutes />}>
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/my-profile" element={<MyProfilePage />} />
+                <Route path="/quiz" element={<QuizHomePage />} />
+                <Route path="/quiz/me" element={<MyQuizzesPage />} />
+                <Route path="/quiz/create/:slug" element={<CreateQuizPage />} />
+                <Route path="/quiz-offline" element={<QuizOfflineDashboardPage />} />
+                <Route path="/quiz/play/:slug" element={<QuizGamePage />} />
+                <Route path="/quiz/score/:slug" element={<ScorePage />} />
+              </Route>
+
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </div>

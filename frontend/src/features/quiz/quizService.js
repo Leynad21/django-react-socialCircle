@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from 'react-toastify'
 
 const BACKEND_DOMAIN = "http://localhost:8000"
 
@@ -35,15 +36,22 @@ const getQuiz = async (quizData, accessToken) => {
 // Delete Quiz
 
 const deleteQuiz = async (quizData, accessToken) => {
-    const config = {
-        headers: {
-            "Authorization": `Bearer ${accessToken}`,
-        }
-    }
-    const response = await axios.delete(QUIZZES_URL + quizData.slug, config)
+    try {
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
+            },
+        };
+        const response = await axios.delete(QUIZZES_URL + quizData.slug, config);
 
-    return response.data
-}
+        toast.success('Quiz deleted successfully');
+
+        return response.data;
+    } catch (error) {
+        toast.error('Failed to delete the quiz');
+        setInterval(window.location.reload(), 3000)
+    }
+};
 
 // Create Quiz
 
