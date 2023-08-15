@@ -31,4 +31,4 @@ The inspiration behind this creation arose from the cherished moments spent with
 3. Create and play quizzes.
 
 
-For more details, visit the [live demo](https://www.youtube.com/watch?v=v7oJdLA-qew&ab_channel=DanyVicente).
+For more details, visit the demo: https://www.youtube.com/watch?v=v7oJdLA-qew&ab_channel=DanyVicente
